@@ -58,7 +58,7 @@ params:
   tocopen: true
 
   assets:
-    favicon: "imgs/network-switch.png"
+    favicon: "imgs/mitsubishi.svg"
     favicon16x16: "favicon-16x16.png"
     favicon32x32: "favicon-32x32.png"
     searchIndex: "index.json"
@@ -107,7 +107,7 @@ params:
     hiddenInSingle: true
 
   editPost:
-    URL: "https://github.com/ApolloMonasa/Tech/tree/main/content"
+    URL: "https://github.com/ApolloMonasa/TechBlogs/tree/main/content"
     Text: "Suggest Changes"
     appendFilePath: true
 

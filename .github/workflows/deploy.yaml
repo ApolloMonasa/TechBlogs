@@ -1,0 +1,79 @@
+# Sample workflow for building and deploying a Hugo site to GitHub Pages
+name: Deploy
+
+on:
+  # 监听 main 分支的 push 事件，一有变动就触发部署
+  push:
+    branches:
+      - main
+  # 允许你在 GitHub Actions 页面手动点击按钮触发
+  workflow_dispatch:
+
+# 设置 GITHUB_TOKEN 的权限，允许它修改 Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 允许并发部署，如果有新的 Commit 进来，自动取消正在进行的旧构建，省时间
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+# 默认使用 bash 命令行
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # ========================================================================
+  # 构建任务 (Build Job)
+  # ========================================================================
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.149.0 # 指定一个稳定的 Hugo 版本
+    steps:
+      # 1. 拉取代码
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # 【关键】必须递归拉取子模块，否则 PaperMod 主题是空的！
+          submodules: recursive 
+          fetch-depth: 0 # 获取完整历史，用于生成 GitInfo (最后修改时间)
+
+      # 2. 安装 Hugo (Extended 版)
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true # PaperMod 并没有用 SCSS，但开启 Extended 更加保险兼容
+
+      # 3. 编译网站
+      - name: Build with Hugo
+        env:
+          # 针对 PaperMod 的生产环境优化
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: |
+          hugo --minify
+
+      # 4. 上传生成好的文件 (artifact)
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  # ========================================================================
+  # 部署任务 (Deploy Job)
+  # ========================================================================
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build # 必须等 Build 任务成功了才执行
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

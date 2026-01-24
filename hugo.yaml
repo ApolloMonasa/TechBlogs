@@ -93,7 +93,7 @@ params:
   # -----------------------------------------------------------------------
   homeInfoParams:
     Title: "Hi there \U0001F44B"
-    Content: "Welcome to my Tech Blog. 这里记录我的个人开发笔记。"
+    Content: "Welcome to my Tech Blog. 这里记录我的个人开发经验，希望留下学习的足迹。"
 
   socialIcons:
     - name: github

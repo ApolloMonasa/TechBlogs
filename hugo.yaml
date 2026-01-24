@@ -1,0 +1,168 @@
+baseURL: "https://ApolloMonasa.github.io/TechBlogs/"
+title: TechBlogs
+theme: PaperMod
+languageCode: "zh-cn"
+defaultContentLanguage: "zh"
+
+# 【重要】强制规范化 URL
+# 因为你部署在子目录 /Tech/ 下，开启这个可以防止 CSS 和图片路径错误
+canonifyURLs: true
+
+# 分页每页显示的文章数
+pagination.paperSize: 5
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+# 【重要】开启 JSON 输出，否则搜索功能（Fuse.js）无法工作
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  title: TechBlogs
+  description: "ApolloMonasa's Tech Blog"
+  keywords: [Blog, Java, NeoForge, PaperMod]
+  author: ApolloMonasa
+  
+  # 日期格式
+  DateFormat: "2006-01-02"
+  
+  # 主题模式：auto (跟随系统), dark, light
+  defaultTheme: auto
+  disableThemeToggle: false
+
+  # 界面功能开关
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true # 【已开启】PaperMod 自带的代码复制按钮
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  
+  # 评论开关
+  comments: true
+  
+  # 元数据开关
+  hidemeta: false
+  hideSummary: false
+  
+  # 目录 (TOC) 设置
+  showtoc: true
+  tocopen: true
+
+  # 网站图标 (请将图片放入 static 文件夹)
+  assets:
+    favicon: "favicon.ico"
+    favicon16x16: "favicon-16x16.png"
+    favicon32x32: "favicon-32x32.png"
+
+  # 浏览器标签页显示的图标
+  label:
+    text: "TechBlogs"
+    icon: favicon.ico
+    iconHeight: 35
+
+  # -----------------------------------------------------------------------
+  # 首页模式选择：Profile Mode (个人简介) vs Home Info (图文列表)
+  # 这里我为你开启了 Profile Mode，更适合个人技术博客
+  # -----------------------------------------------------------------------
+  profileMode:
+    enabled: true
+    title: ApolloMonasa
+    subtitle: "Focus on DataBase-Tech"
+    imageUrl: "https://github.com/ApolloMonasa.png" # 自动抓取 GitHub 头像
+    imageWidth: 120
+    imageHeight: 120
+    imageTitle: Me
+    buttons:
+      - name: 文章列表
+        url: posts/
+      - name: 标签
+        url: tags/
+      # - name: GitHub
+      #   url: "https://github.com/ApolloMonasa"
+
+  # 如果想用普通的列表模式，把上面的 profileMode enabled 改为 false，并解开下面的注释
+  # homeInfoParams:
+  #   Title: "Hi there \U0001F44B"
+  #   Content: Welcome to my blog
+
+  # 社交图标
+  socialIcons:
+    - name: github
+      url: "https://github.com/ApolloMonasa"
+    - name: bilibili
+      url: "https://space.bilibili.com/1029459856"
+
+  # 封面图设置
+  cover:
+    hidden: true
+    hiddenInList: true
+    hiddenInSingle: true
+
+  # "编辑此页" 链接 (可选)
+  editPost:
+    URL: "https://github.com/ApolloMonasa/Tech/tree/main/content"
+    Text: "Suggest Changes"
+    appendFilePath: true
+
+  # 搜索配置 (Fuse.js)
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    limit: 10
+    keys: ["title", "permalink", "summary", "content"]
+
+# -------------------------------------------------------------------------
+# 菜单配置
+# 【注意】因为是子目录部署，这里去掉了 url 开头的斜杠 /
+# -------------------------------------------------------------------------
+menu:
+  main:
+    - identifier: categories
+      name: 分类
+      url: categories/
+      weight: 10
+    - identifier: tags
+      name: 标签
+      url: tags/
+      weight: 20
+    - identifier: archives
+      name: 归档
+      url: archives/
+      weight: 30
+    - identifier: search
+      name: 搜索
+      url: search/
+      weight: 40
+
+# -------------------------------------------------------------------------
+# 代码高亮配置
+# -------------------------------------------------------------------------
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    style: github # 推荐用 github 或 dracula

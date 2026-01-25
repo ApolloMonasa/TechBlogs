@@ -1,79 +1,111 @@
+# =========================================================================
+# 基础核心配置
+# =========================================================================
+# 【重要】网站的基础地址。因为你部署在子目录，最后必须带上 /TechBlogs/
 baseURL: "https://ApolloMonasa.github.io/TechBlogs/"
 title: TechBlogs
 theme: PaperMod
 languageCode: "zh-cn"
 defaultContentLanguage: "zh"
-
+# 定义站点的分类法
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+# 【重要】强制 URL 规范化
+# 作用：配合 baseURL 使用。设为 true 后，CSS/JS 等资源会自动补全 /TechBlogs/ 前缀
+# 如果关闭，你的网站样式可能会在 GitHub Pages 上加载失败（白屏）
 canonifyURLs: true
 
-
+# 【修改】每页显示的文章数量 (原 pagination.pagerSize 是错的，标准写法是 paginate)
 pagination.pagerSize: 5
 
-enableRobotsTXT: true
-buildDrafts: false
-buildFuture: false
-buildExpired: false
+# =========================================================================
+# 构建与生成设置
+# =========================================================================
+enableRobotsTXT: true      # 生成 robots.txt，允许搜索引擎爬取
+buildDrafts: false         # 生产环境不编译 draft: true 的草稿
+buildFuture: false         # 不编译发布日期在未来的文章
+buildExpired: false        # 不编译已过期的文章
 
+# 【重要】输出格式配置
+# 必须包含 JSON，因为 PaperMod 的本地搜索功能依赖 index.json 文件
 outputs:
   home:
     - HTML
     - RSS
     - JSON
 
+# 压缩设置：让网页体积更小，加载更快
 minify:
   disableXML: true
   minifyOutput: true
 
+# =========================================================================
+# 主题参数 (Params) - PaperMod 的核心控制区
+# =========================================================================
 params:
   env: production
   title: TechBlogs
   description: "ApolloMonasa's Tech Blog"
   keywords: [Blog, Java, NeoForge, PaperMod]
   author: ApolloMonasa
-  DateFormat: "2006-01-02"
+  DateFormat: "2006-01-02" # 日期显示格式 (Go语言特殊写法，不要改数字)
+  
+  # 主题颜色模式：auto(跟随系统) | dark(强制深色) | light(强制浅色)
   defaultTheme: auto
-  disableThemeToggle: false
+  disableThemeToggle: false # 是否隐藏右上角的日/夜切换按钮 (false=显示)
 
-  # 【新增】关键设置：定义哪些文件夹的内容算作“主文章”
-  # 如果你不加这行，Hugo 默认只显示文章最多的那个文件夹（通常只显示 posts，不显示 docs）
-  # 加上这行，首页列表就会同时包含 posts 和 docs 里的最近文章
+  # 【关键】首页显示内容源
+  # 作用：告诉 Hugo 首页的文章列表应该包含哪些文件夹
+  # 如果不写，默认只显示文章最多的那个文件夹。这里我们让 posts 和 docs 都显示。
   mainSections: 
     - posts
     - docs
 
-  ShowReadingTime: true
-  ShowShareButtons: true
-  ShowPostNavLinks: true
-  ShowBreadCrumbs: true
-  ShowCodeCopyButtons: true
-  ShowWordCount: true
-  ShowRssButtonInSectionTermList: true
-  UseHugoToc: true
-  disableSpecial1stPost: false
-  disableScrollToTop: false
-  comments: true
-  hidemeta: false
-  hideSummary: false
-  showtoc: true
-  tocopen: true
+  # --- 界面元素开关 ---
+  ShowReadingTime: true    # 显示“阅读时长”
+  ShowShareButtons: true   # 显示文章底部的分享按钮
+  ShowPostNavLinks: true   # 显示“上一篇/下一篇”链接
+  ShowBreadCrumbs: true    # 显示面包屑导航 (主页 > Posts > ...)
+  ShowCodeCopyButtons: true # 显示代码块右上角的“复制”按钮
+  ShowWordCount: true      # 显示字数统计
+  ShowRssButtonInSectionTermList: true # 在列表页显示 RSS 按钮
+  UseHugoToc: true         # 使用 Hugo 原生目录生成器
+  disableSpecial1stPost: false # 是否禁止第一篇文章放大显示
+  disableScrollToTop: false    # 是否禁用右下角的“回到顶部”箭头
+  
+  # --- 评论与元数据 ---
+  comments: true           # 全局开启评论 (需配合 layouts/partials/comments.html)
+  hidemeta: false          # 是否在文章标题下隐藏作者、日期等信息 (false=显示)
+  hideSummary: false       # 是否在列表页隐藏文章摘要 (false=显示)
+  
+  # --- 目录 (Table of Contents) ---
+  showtoc: true            # 是否显示目录
+  tocopen: false            # 是否默认展开目录 (true=展开, false=折叠)
 
+  # --- 静态资源引用 ---
+  # 请确保图片放在 static/imgs/ 目录下
   assets:
-    favicon: "imgs/mitsubishi.svg"
-    favicon16x16: "favicon-16x16.png"
-    favicon32x32: "favicon-32x32.png"
-    searchIndex: "index.json"
+    favicon: "imgs/mitsubishi.svg"          # 浏览器标签页图标
+    favicon16x16: "favicon-16x16.png"       # 兼容小尺寸
+    favicon32x32: "favicon-32x32.png"       # 兼容大尺寸
+    searchIndex: "index.json"               # 搜索索引文件路径 (不要改)
 
+  # --- 网站左上角 LOGO ---
   label:
-    text: "TechBlogs"
-    icon: imgs/network-switch.png
-    iconHeight: 35
+    text: "TechBlogs"                       # LOGO 旁边的文字
+    icon: "imgs/network-switch.png"         # LOGO 图标路径 (建议用正斜杠 /)
+    iconHeight: 35                          # 图标高度
 
-  # -----------------------------------------------------------------------
-  # 【修改】关闭 Profile Mode (个人简介模式)
-  # 必须设为 false，否则文章列表会被原本的个人卡片挡住！
-  # -----------------------------------------------------------------------
+  # =======================================================================
+  # 首页模式：ProfileMode (个人卡片) vs HomeInfo (列表模式)
+  # PaperMod 只能二选一。你现在选择的是 HomeInfo 列表模式。
+  # =======================================================================
+  
+  # 1. 个人简介模式 (已关闭)
   profileMode:
-    enabled: false 
+    enabled: false  # <--- 必须设为 false，否则文章列表会被挡住
     title: ApolloMonasa
     subtitle: "Focus on DataBase-Tech"
     imageUrl: "https://github.com/ApolloMonasa.png"
@@ -86,47 +118,51 @@ params:
       - name: 标签
         url: tags/
 
-  # -----------------------------------------------------------------------
-  # 【开启】Home Info Mode (列表模式)
-  # 关闭上面的 Profile 后，你需要在这里配置首页顶部的欢迎语
-  # 如果留空，首页就只显示干巴巴的文章列表
-  # -----------------------------------------------------------------------
+  # 2. 列表信息模式 (已开启)
+  # 显示在文章列表上方的欢迎语
   homeInfoParams:
     Title: "Hi there \U0001F44B"
     Content: "Welcome to my Tech Blog. 这里记录我的个人开发经验，希望留下学习的足迹。"
 
+  # 社交图标 (显示在欢迎语下方)
   socialIcons:
     - name: github
       url: "https://github.com/ApolloMonasa"
     - name: bilibili
       url: "https://space.bilibili.com/1029459856"
 
+  # --- 封面图设置 (Cover) ---
   cover:
-    hidden: true
-    hiddenInList: true
-    hiddenInSingle: true
+    hidden: false         # 全局开关 (false=开启封面功能)
+    hiddenInList: false    # 在首页列表里隐藏封面 (只显示文字摘要)
+    hiddenInSingle: true  # 在文章详情页顶部隐藏封面 (如果设为 false 则会在标题上方显示大图)
 
+  # --- "编辑此页" 按钮 ---
   editPost:
     URL: "https://github.com/ApolloMonasa/TechBlogs/tree/main/content"
-    Text: "Suggest Changes"
-    appendFilePath: true
+    Text: "Suggest Changes" # 按钮显示的文字
+    appendFilePath: true    # 自动在 URL 后面拼接当前文章路径
 
+  # --- 搜索配置 (Fuse.js) ---
   fuseOpts:
-    isCaseSensitive: false
-    shouldSort: true
+    isCaseSensitive: false     # 是否区分大小写
+    shouldSort: true           # 是否按相关度排序
     location: 0
     distance: 1000
-    threshold: 0.4
+    threshold: 0.4             # 匹配阈值 (越低越精确，越高越模糊)
     minMatchCharLength: 0
-    limit: 10
-    keys: ["title", "permalink", "summary", "content", "tags"]
+    limit: 10                  # 搜索结果最多显示几条
+    keys: ["title", "permalink", "summary", "content", "tags"] # 搜索范围
 
+# =========================================================================
+# 顶部导航栏菜单
+# =========================================================================
 menu:
   main:
     - identifier: categories
       name: 分类
-      url: categories/
-      weight: 10
+      url: categories/   # 注意：子目录部署时，开头不要加斜杠 /
+      weight: 10         # 排序权重，数字越小越靠左
     - identifier: tags
       name: 标签
       url: tags/
@@ -135,17 +171,23 @@ menu:
       name: 归档
       url: archives/
       weight: 30
+    - identifier: series
+      name: 系列
+      url: series/
+      weight: 40
     - identifier: search
       name: 搜索
       url: search/
-      weight: 40
-
+      weight: 50
+# =========================================================================
+# 代码高亮设置 (Chroma)
+# =========================================================================
 pygmentsUseClasses: true
 markup:
   highlight:
     noClasses: false
-    anchorLineNos: true
-    codeFences: true
-    guessSyntax: true
-    lineNos: true
-    style: github
+    anchorLineNos: true   # 行号是否可点击锚定
+    codeFences: true      # 支持 markdown 的 ``` 代码块
+    guessSyntax: true     # 如果没写语言类型，自动猜测
+    lineNos: true         # 显示行号 (true=显示)
+    style: github         # 代码高亮配色 (推荐 github, dracula, monokai)

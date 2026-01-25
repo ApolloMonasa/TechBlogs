@@ -1,6 +1,6 @@
 ---
-title: 'Test'
-date: 2026-01-24T16:20:54+08:00
+title: 'ExceptionHandling'
+date: 2026-01-25T14:38:52+08:00
 draft: false
 # weight: 1
 # aliases: ["/first"]
@@ -26,7 +26,7 @@ cover:
     image: "" # 图片路径：建议使用 assets/image.png 或 /images/xxx.png
     alt: "<alt text>"
     caption: ""
-    relative: false # 如果使用 Page Bundles (文件夹形式的文章)，改为 true
+    relative: true # 如果使用 Page Bundles (文件夹形式的文章)，改为 true
     hidden: false   # false=在文章内容页顶部显示封面
 
 # -----------------------------------------------------------------------
@@ -48,5 +48,3 @@ cover:
 #     Text: "Suggest Changes"
 #     appendFilePath: true
 ---
-
-如果是这样，搜索可以吗？

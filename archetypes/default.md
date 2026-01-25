@@ -1,50 +1,34 @@
 ---
-title: '{{ replace .Name "-" " " | title }}'
+title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
-draft: false
-# weight: 1
-# aliases: ["/first"]
-tags: []
+draft: false 
+# draft: true 表示草稿，写完后记得改为 false 发布
+
 author: "ApolloMonasa"
-description: ""
+description: "" # 文章摘要，如果不写默认截取正文前70字
 
 # -----------------------------------------------------------------------
-# 页面功能设置 (PaperMod)
+# 分类与索引 (核心管理区)
 # -----------------------------------------------------------------------
-showToc: true
-TocOpen: true      # 默认展开目录，方便查看
-hidemeta: false    # 是否隐藏元数据(作者、时间等)
-comments: true    # 是否开启评论
-disableShare: false
-disableHLJS: false # false=开启代码高亮
-searchHidden: false # true=不显示在搜索结果中
+tags: []         # 标签：如 [Java, Docker, 踩坑]
+categories: []   # 分类：如 [后端开发]
+series: []       # 系列：如 [C++从入门到入土] (填了这个就会自动归档到系列页)
+weight: 0        # 排序：数字越小越靠前 (仅在置顶或系列文章中有效)
 
 # -----------------------------------------------------------------------
 # 封面图设置 (Cover)
 # -----------------------------------------------------------------------
 cover:
-    image: "" # 图片路径：建议使用 assets/image.png 或 /images/xxx.png
-    alt: "<alt text>"
-    caption: ""
-    relative: false # 如果使用 Page Bundles (文件夹形式的文章)，改为 true
-    hidden: false   # false=在文章内容页顶部显示封面
+    image: ""    # 图片路径：直接填图片名，如 "cover.jpg"
+    caption: ""  # 图片底部的说明文字
+    alt: ""      # 图片无法显示时的替代文本
+    relative: true # 【关键】开启相对路径，完美支持 Page Bundles
+    hidden: false  # false = 在文章详情页顶部显示这张大图
 
 # -----------------------------------------------------------------------
-# 界面显示微调 (通常在 hugo.yaml 全局设置，这里可单独覆盖)
+# 特殊功能开关 (按需取消注释)
 # -----------------------------------------------------------------------
-# ShowReadingTime: true
-# ShowBreadCrumbs: true
-# ShowPostNavLinks: true
-# ShowWordCount: true
-# ShowRssButtonInSectionTermList: true
-# UseHugoToc: true
-
-# -----------------------------------------------------------------------
-# SEO 与 编辑链接
-# -----------------------------------------------------------------------
-# canonicalURL: "https://canonical.url/to/page"
-# editPost:
-#     URL: "https://github.com/ApolloMonasa/Tech/content"
-#     Text: "Suggest Changes"
-#     appendFilePath: true
+# searchHidden: true  # 如果是 true，这篇文章就不会被搜到
+# showToc: false      # 如果想单独隐藏这篇文章的目录，解开这行
+# comments: false     # 如果想单独关闭这篇文章的评论，解开这行
 ---

@@ -509,8 +509,117 @@ int main() {
 
 ---
 
-接下来我们来聊聊**深拷贝和浅拷贝**这个问题。
+接下来我们来聊聊**深拷贝和浅拷贝**这个问题，让我以一段代码来引入：
+```cpp
+#include <iostream>
+using namespace std;
 
+class Array {
+    int n, *data;
+
+public:
+    Array() : n(10), data(new int[n]) {
+        for (int i = 0; i < n; i++) data[i] = 0;
+    }
+    int size() {
+        return n;
+    }
+    void set(int p, int v) {
+        data[p] = v;
+    }
+    void print() {
+        for (int i = 0; i < n; i++) {
+            if (i) cout << ' ';
+            cout << data[i];
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Array a, b = a;
+    a.print();
+    b.print();
+    for (int i = 0; i < a.size(); i++) {
+        a.set(i, 1);
+    }
+    a.print();
+    b.print();
+    for (int i = 0; i < b.size(); i++) {
+        b.set(i, i);
+    }
+    a.print();
+    b.print();
+    return 0;
+}
+```
+```
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1
+0 1 2 3 4 5 6 7 8 9
+0 1 2 3 4 5 6 7 8 9
+```
+可以看到，无论我怎么反复轮流修改a和b数组，它们的内容始终一致，说明**C++默认的拷贝机制只是简单的逐字段复制内容**(我们称为**浅拷贝**)，这导致a和b数组中的data指针指向了同一块儿内存，这才造成了上述现象。
+
+而**深拷贝**呢，就是有针对性的为字段中的指针变量开辟新的存储区，并把原先的内容全部复制过来，看代码：
+```cpp
+#include <iostream>
+using namespace std;
+
+class Array {
+    int n, *data;
+
+public:
+    Array() : n(10), data(new int[n]) {
+        for (int i = 0; i < n; i++) data[i] = 0;
+    }
+    Array(const Array& a) : n(a.n), data(new int[n]) {
+        for (int i = 0; i < a.n; i++) data[i] = a.data[i];
+    }
+    int size() {
+        return n;
+    }
+    void set(int p, int v) {
+        data[p] = v;
+    }
+    int get(int p) { return data[p]; }
+    void print() {
+        for (int i = 0; i < n; i++) {
+            if (i) cout << ' ';
+            cout << data[i];
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Array a, b = a;
+    a.print();
+    b.print();
+    for (int i = 0; i < a.size(); i++) {
+        a.set(i, 1);
+    }
+    a.print();
+    b.print();
+    for (int i = 0; i < b.size(); i++) {
+        b.set(i, i);
+    }
+    a.print();
+    b.print();
+    return 0;
+}
+```
+```
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+1 1 1 1 1 1 1 1 1 1
+0 0 0 0 0 0 0 0 0 0
+1 1 1 1 1 1 1 1 1 1
+0 1 2 3 4 5 6 7 8 9
+```
+此时二者就不会相互影响了。
 ### 属性和方法
 ### 总结
 

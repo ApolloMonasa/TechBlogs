@@ -1,8 +1,8 @@
 ---
-title: 'Inheritance'
+title: '洽谈C++继承'
 date: 2026-01-25T14:38:16+08:00
 draft: false
-# weight: 1
+weight: 1
 # aliases: ["/first"]
 tags: []
 author: "ApolloMonasa"
@@ -48,3 +48,26 @@ cover:
 #     Text: "Suggest Changes"
 #     appendFilePath: true
 ---
+
+# 继承
+
+## 基本语法
+
+```cpp
+
+
+## 注意事项
+
+## 编码技巧：大整形
+
+## 继承权限
+> public, private, protected又出现了
+# 多重继承
+
+## 多重继承的基础
+
+## 菱形继承
+
+## 对象模型
+> C++语言标准规定了语法，但是没有规定底层究竟如何存储类的对象，这个就是对象模型。
+

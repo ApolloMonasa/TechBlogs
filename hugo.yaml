@@ -186,8 +186,8 @@ pygmentsUseClasses: true
 markup:
   highlight:
     noClasses: false
-    anchorLineNos: true   # 行号是否可点击锚定
+    anchorLineNos: false   # 行号是否可点击锚定
     codeFences: true      # 支持 markdown 的 ``` 代码块
     guessSyntax: true     # 如果没写语言类型，自动猜测
-    lineNos: true         # 显示行号 (true=显示)
+    lineNos: false         # 显示行号 (true=显示)
     style: github         # 代码高亮配色 (推荐 github, dracula, monokai)
